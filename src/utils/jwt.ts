@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT || "6K5ahrS4yty8jpXp";
 export const generateToken = (payload: any) => {
   const token = JWT.sign(payload, JWT_SECRET, {
     algorithm: "HS512",
-    issuer: "ZeroBalance",
+    issuer: "Hybr1d",
     expiresIn: "1d",
   });
 
@@ -25,7 +25,7 @@ export const generateToken = (payload: any) => {
  */
 export const verifyToken = (token: string) => {
   const decoded = JWT.verify(token, JWT_SECRET, {
-    issuer: "ZeroBalance",
+    issuer: "Hybr1d",
     algorithms: ["HS512"],
   });
 

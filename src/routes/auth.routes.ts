@@ -9,6 +9,7 @@ router.post("/login", async (req, res, next) => {
     const response = await login({
       email: req.body.email,
       password: req.body.password,
+      role: req.body.role,
     });
     res.status(STATUS_CODES.SUCCESS).json({
       message: "Login Successful",
@@ -26,6 +27,7 @@ router.post("/register", async (req, res, next) => {
       email: req.body.email,
       name: req.body.name,
       password: req.body.password,
+      role: req.body.role,
     });
     res.status(STATUS_CODES.SUCCESS).json({
       message: "Registration Successful",

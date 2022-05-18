@@ -24,7 +24,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(helmet());
 
-app.use("/api/v1", apiRouter);
+app.use("/api", apiRouter);
 app.use(NotFoundHandler);
 app.use(ErrorHandler);
 

@@ -1,11 +1,12 @@
 import { Model, Document, model, Schema, SchemaTypes } from "mongoose";
 
+export type UserRole = "buyer" | "seller";
+
 export interface UserType {
   name: string;
   email: string;
   password: string;
-  attempts: number;
-  last_attempt: Date;
+  role: UserRole;
 }
 
 export interface UserDocument extends Document, UserType {}
@@ -26,17 +27,14 @@ const userSchema: Schema<UserDocument, UserModelType> = new Schema(
     password: {
       type: SchemaTypes.String,
       required: true,
-      match: [/[a-zA-Z0-9\@\$\!]/, "Please enter a valid password"],
     },
-    attempts: {
-      type: SchemaTypes.Number,
-      default: 0,
-      min: 0,
-      max: 4,
-    },
-    last_attempt: {
-      type: SchemaTypes.Date,
-      default: new Date(),
+    role: {
+      type: SchemaTypes.String,
+      enum: {
+        values: ["buyer", "seller"],
+        message: "'{VALUE}' is not a valid user role",
+      },
+      default: "buyer",
     },
   },
   { timestamps: true } // this will add the createdAt and updatedAt keys to the documents automatically.

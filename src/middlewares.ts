@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { UserRole } from "./models/user.model";
 import { API_RESPONSE, STATUS_CODES } from "./utils/api_response";
 import { CustomError, NotFoundError } from "./utils/errors";
 import { verifyToken } from "./utils/jwt";
@@ -29,14 +30,12 @@ export const ErrorHandler = (
     });
   }
 
-  return res
-    .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-    .json({
-      message: error.message,
-      code: API_RESPONSE.FAILED,
-      data: null,
-      stack,
-    });
+  return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({
+    message: error.message,
+    code: API_RESPONSE.FAILED,
+    data: null,
+    stack,
+  });
 };
 
 export const mustAuthorize = async (
@@ -71,3 +70,16 @@ export const mustAuthorize = async (
     next(err);
   }
 };
+
+export const restrictAccess =
+  (role: UserRole) => (req: Request, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user)
+        throw new CustomError("Unauthorized", STATUS_CODES.UNAUTHORIZED);
+      if (req.user.role !== role)
+        throw new CustomError("Access Forbidden", STATUS_CODES.FORBIDDEN);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  };
