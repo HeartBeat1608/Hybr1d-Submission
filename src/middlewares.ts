@@ -19,15 +19,24 @@ export const ErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  const stack = process.env.NODE_ENV === "production" ? null : error.stack;
   if (error instanceof CustomError) {
-    return res
-      .status(error.statusCode)
-      .json({ message: error.message, code: API_RESPONSE.FAILED, data: null });
+    return res.status(error.statusCode).json({
+      message: error.message,
+      code: API_RESPONSE.FAILED,
+      data: null,
+      stack,
+    });
   }
 
   return res
     .status(STATUS_CODES.INTERNAL_SERVER_ERROR)
-    .json({ message: error.message, code: API_RESPONSE.FAILED, data: null });
+    .json({
+      message: error.message,
+      code: API_RESPONSE.FAILED,
+      data: null,
+      stack,
+    });
 };
 
 export const mustAuthorize = async (

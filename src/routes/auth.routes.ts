@@ -6,7 +6,7 @@ const router = Router();
 
 router.post("/login", async (req, res, next) => {
   try {
-    const response = login({
+    const response = await login({
       email: req.body.email,
       password: req.body.password,
     });
@@ -22,18 +22,16 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   try {
-    const response = register({
+    const response = await register({
       email: req.body.email,
       name: req.body.name,
       password: req.body.password,
     });
-    res
-      .status(STATUS_CODES.SUCCESS)
-      .json({
-        message: "Registration Successful",
-        code: API_RESPONSE.OK,
-        data: response,
-      });
+    res.status(STATUS_CODES.SUCCESS).json({
+      message: "Registration Successful",
+      code: API_RESPONSE.OK,
+      data: response,
+    });
   } catch (err) {
     next(err);
   }
