@@ -1,7 +1,7 @@
 {
-  "name": "zerobalance-server",
+  "name": "hybrid-server",
   "version": "1.0.0",
-  "description": "Backend Server to handle the interview problem given by ZeroBalance Technologies",
+  "description": "Backend Server to handle the interview problem given by Hybr1d",
   "main": "index.js",
   "author": "Durgesh Pandey <durgeshp1608@gmail.com>",
   "license": "MIT",
