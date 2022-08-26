@@ -55,6 +55,6 @@ mongoose.connect(MONGO_URI, (err) => {
 */
 
 app.set("PORT", process.env.PORT || "5000");
-app.set("NAME", process.env.NAME || "ZeroBalance");
+app.set("NAME", process.env.NAME || "Hybr1d");
 
 export default app;
